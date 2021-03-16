@@ -58,16 +58,21 @@ export class SidebarNavItem extends React.Component<SidebarNavItemProps> {
             <Icon className="expand-icon" material={this.isExpanded ? "keyboard_arrow_up" : "keyboard_arrow_down"}/>
           </div>
           <ul className={cssNames("sub-menu", { active: isActive })}>
-            {subMenus.map(({ title, url }) => (
-              <NavLink key={url} to={url} className={cssNames({ visible: this.isExpanded })}>
-                {title}
-              </NavLink>
-            ))}
-            {React.Children.toArray(children).map((child: React.ReactElement<any>) => {
-              return React.cloneElement(child, {
-                className: cssNames(child.props.className, { visible: this.isExpanded }),
-              });
-            })}
+            {
+              subMenus.map(({ title, url }) => (
+                <NavLink key={url} to={url} className={cssNames({ visible: this.isExpanded })}>
+                  {title}
+                </NavLink>
+              ))
+            }
+            {
+              React.Children.toArray(children)
+                .map((child: React.ReactElement<any>) => (
+                  React.cloneElement(child, {
+                    className: cssNames(child.props.className, { visible: this.isExpanded }),
+                  })
+                ))
+            }
           </ul>
         </div>
       );
